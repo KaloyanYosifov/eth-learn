@@ -1,26 +1,33 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <ul class="todos">
+    <li>Here</li>
+  </ul>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+/**
+ * External dependencies.
+ */
+import { onMounted } from 'vue';
+
+/**
+ * Internal dependencies.
+ */
+import Ethereum from '@/Ethereum';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+
+  setup() {
+    let ethereum = null;
+
+    onMounted(() => {
+      ethereum = new Ethereum();
+      void ethereum.init();
+    });
+
+    return {
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
