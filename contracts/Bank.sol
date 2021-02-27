@@ -6,12 +6,16 @@ import "./Token.sol";
 contract Bank {
     Token private token;
 
+    event Deposited(address indexed sender, uint256 value);
+
     constructor(Token _token) {
         token = _token;
     }
 
-    function deposit(uint256 value) public payable returns (bool) {
-        token.mint(msg.sender, value);
+    function deposit() public payable returns (bool) {
+        token.mint(msg.sender, msg.value);
+
+        emit Deposited(msg.sender, msg.value);
 
         return true;
     }
