@@ -9,25 +9,39 @@ const expect = require('chai').expect;
 const Bank = artifacts.require('Bank');
 const Token = artifacts.require('Token');
 
-contract('Bank', async accounts => {
-    const firstAccount = accounts[0];
+contract('Bank', async ([deployer, account]) => {
     let bank = null;
     let token = null;
 
     beforeEach(async () => {
-        token = await Token.new({ from: firstAccount });
-        bank = await Bank.new(token.address, { from: firstAccount });
+        token = await Token.new({ from: deployer });
+        bank = await Bank.new(token.address, { from: deployer });
 
         await token.transferMinterOwnership(bank.address);
     });
 
-    it('it can deposit money to address', async () => {
-        const firstAccount = accounts[0];
-        const previousBalanceOfAccount = Number((await web3.eth.getBalance(firstAccount)).toString());
+    it('can deposit ether to bank', async () => {
+        const previousBalanceOfAccount = Number(await web3.eth.getBalance(account));
 
-        await bank.deposit({ value: web3.utils.toWei('0.003', 'ether'), from: firstAccount });
+        await bank.deposit({ value: web3.utils.toWei('0.003', 'ether'), from: account });
 
-        const newBalanceOfAccount = Number((await web3.eth.getBalance(firstAccount)).toString());
-        expect(newBalanceOfAccount).to.eq(previousBalanceOfAccount - Number(web3.utils.toWei('0.003', 'ether')));
+        expect(Number(await web3.eth.getBalance(account))).to.lessThan(previousBalanceOfAccount);
+    });
+
+    it('can withdraw deposit and receive 10 koko tokens', async () => {
+        expect(Number(await token.balanceOf(account))).to.equal(0);
+
+        await bank.deposit({ value: web3.utils.toWei('0.003', 'ether'), from: account });
+
+        const previousBalanceOfAccount = Number(await web3.eth.getBalance(account));
+
+        expect(Number(await token.balanceOf(account))).to.equal(0);
+        expect(Number(await bank.depositedEthereum(account))).to.equal(Number(web3.utils.toWei('0.003', 'ether')));
+
+        await bank.withdraw({ from: account });
+
+        expect(Number(await bank.depositedEthereum(account))).to.equal(0);
+        expect(Number((await token.balanceOf(account)).toString())).to.equal(10);
+        expect(Number(await web3.eth.getBalance(account))).to.be.greaterThan(previousBalanceOfAccount);
     });
 });
