@@ -1,6 +1,6 @@
 <template>
-  <ul class="todos">
-    <li>Here</li>
+  <ul v-if="accounts" class="accounts">
+    <li v-for="account in accounts" :key="account">{{ account }}</li>
   </ul>
 </template>
 
@@ -8,26 +8,21 @@
 /**
  * External dependencies.
  */
-import { onMounted } from 'vue';
+import useEthereum from '@/composables/use-ethereum';
 
 /**
  * Internal dependencies.
  */
-import Ethereum from '@/Ethereum';
 
 export default {
   name: 'App',
 
   setup() {
-    let ethereum = null;
-
-    onMounted(() => {
-      ethereum = new Ethereum();
-      void ethereum.init();
-    });
+    const { accounts } = useEthereum();
 
     return {
-    }
-  }
-}
+      accounts,
+    };
+  },
+};
 </script>
