@@ -22,6 +22,8 @@ contract Bank {
     }
 
     function withdraw() public {
+        require(depositedEthereum[msg.sender] > 0, "Please deposit first, before you can withdraw");
+
         uint256 etherToSend = depositedEthereum[msg.sender];
 
         msg.sender.transfer(etherToSend);

@@ -1,13 +1,18 @@
 /**
  * External dependencies.
  */
-const expect = require('chai').expect;
+import chai, { expect } from 'chai';
 
 /**
  * Internal dependencies.
  */
 const Bank = artifacts.require('Bank');
 const Token = artifacts.require('Token');
+import { solidityError } from './helpers';
+
+chai
+    .use(require('chai-as-promised'))
+    .should();
 
 contract('Bank', async ([deployer, account]) => {
     let bank = null;
@@ -43,5 +48,9 @@ contract('Bank', async ([deployer, account]) => {
         expect(Number(await bank.depositedEthereum(account))).to.equal(0);
         expect(Number((await token.balanceOf(account)).toString())).to.equal(10);
         expect(Number(await web3.eth.getBalance(account))).to.be.greaterThan(previousBalanceOfAccount);
+    });
+
+    it('throws an error if the user tries to withdraw but never has deposited', async () => {
+        await bank.withdraw({ from: account }).should.be.rejectedWith(solidityError('Please deposit first, before you can withdraw'));
     });
 });
