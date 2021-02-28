@@ -13,7 +13,7 @@ export default function useEthereum() {
 
         web3 = new Web3(window.ethereum);
     }
-    const { data: accounts } = useQuery(
+    const accountsQuery = useQuery(
         'ethereum-accounts',
         web3.eth.getAccounts,
         {
@@ -23,6 +23,6 @@ export default function useEthereum() {
 
     return {
         web3,
-        accounts,
+        accountsQuery,
     };
 }
