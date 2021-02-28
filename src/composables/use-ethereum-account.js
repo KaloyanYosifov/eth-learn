@@ -1,7 +1,7 @@
 /**
  * External dependencies.
  */
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useQuery } from '@cytools/vue-query';
 
 /**
@@ -34,5 +34,6 @@ export default function useEthereumAccount() {
 
     return {
         balanceQuery,
+        account: computed(() => account.value),
     };
 }
