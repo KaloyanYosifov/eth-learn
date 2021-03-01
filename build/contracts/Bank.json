@@ -86,36 +86,36 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract Token\",\"name\":\"_token\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Deposited\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Withdrawed\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"depositedEthereum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/kyosifov/projects/ethereum-learning/contracts/Bank.sol\":\"Bank\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/kyosifov/projects/ethereum-learning/contracts/Bank.sol\":{\"keccak256\":\"0xa82268101e204be810e753534990c21d0d312bdcb2b18cb8b978ef22113c9d3c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1b86c0e18475a20c9e8e293564c10e520021ccdc2dffe11203310e34c9796619\",\"dweb:/ipfs/QmPnsv4AbUaPqtESjrcMqsnNhwucDK6mPfZ5zftzJXymqs\"]},\"/home/kyosifov/projects/ethereum-learning/contracts/Token.sol\":{\"keccak256\":\"0x7b282840f275025f2f180a5917e52a18bee7cfbd67d05c0210fcfcdb068f805a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e6e8825c2143c92bfcd8cee4607d3a149b442d7ebe83919f0c74d44205f168f2\",\"dweb:/ipfs/QmNPXipXAyvfaivBUqqkgBZ6uTGVKJwDwcAiCxrp6V5Rry\"]},\"@openzeppelin/contracts/math/SafeMath.sol\":{\"keccak256\":\"0xcc78a17dd88fa5a2edc60c8489e2f405c0913b377216a5b26b35656b2d0dab52\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://526dc85e1f9b9b45830e202568d267d93dde7a4fcccf4ad7798dadcd92304d3c\",\"dweb:/ipfs/QmaoXMB972J3cSDLtBq3xBo4jLwqD2uzXTwujtSPqkYVhR\"]},\"@openzeppelin/contracts/token/ERC20/ERC20.sol\":{\"keccak256\":\"0xca0c2396dbeb3503b51abf4248ebf77a1461edad513c01529df51850a012bee3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://991b44ff44e0496e8554a90f4c0512c28faed45104d40430019f3c67ea67740e\",\"dweb:/ipfs/Qmc3nRapVbcctELoZS5qe17zLkFB3bETBfwzCTMF1CSuGE\"]},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x5f02220344881ce43204ae4a6281145a67bc52c2bb1290a791857df3d19d78f5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://24427744bd3e6cb73c17010119af12a318289c0253a4d9acb8576c9fb3797b08\",\"dweb:/ipfs/QmTLDqpKRBuxGxRAmjgXt9AkXyACW3MtKzi7PYjm5iMfGC\"]},\"@openzeppelin/contracts/utils/Context.sol\":{\"keccak256\":\"0x8d3cb350f04ff49cfb10aef08d87f19dcbaecc8027b0bed12f3275cd12f38cf0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ded47ec7c96750f9bd04bbbc84f659992d4ba901cb7b532a52cd468272cf378f\",\"dweb:/ipfs/QmfBrGtQP7rZEqEg6Wz6jh2N2Kukpj1z5v3CGWmAqrzm96\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b506040516103003803806103008339818101604052602081101561003357600080fd5b5051600080546001600160a01b039092166001600160a01b031990921691909117905561029b806100656000396000f3fe6080604052600436106100345760003560e01c80630e393a16146100395780633ccfd60b1461007e578063d0e30db014610095575b600080fd5b34801561004557600080fd5b5061006c6004803603602081101561005c57600080fd5b50356001600160a01b031661009d565b60408051918252519081900360200190f35b34801561008a57600080fd5b506100936100af565b005b6100936101e9565b60016020526000908152604090205481565b336000908152600160205260409020546100fa5760405162461bcd60e51b815260040180806020018281038252602d815260200180610239602d913960400191505060405180910390fd5b3360008181526001602052604080822054905190929183156108fc02918491818181858888f19350505050158015610136573d6000803e3d6000fd5b5033600081815260016020526040808220829055815481516340c10f1960e01b81526004810194909452600a602485015290516001600160a01b03909116926340c10f1992604480830193919282900301818387803b15801561019857600080fd5b505af11580156101ac573d6000803e3d6000fd5b50506040805184815290513393507f6cca423c6ffc06e62a0acc433965e074b11c28479b0449250ce3ff65ac9e39fe92509081900360200190a250565b33600081815260016020908152604091829020805434908101909155825190815291517f2da466a7b24304f47e87fa2e1e5a81b9831ce54fec19055ce277ca2f39ba42c49281900390910190a256fe506c65617365206465706f7369742066697273742c206265666f726520796f752063616e207769746864726177a2646970667358221220302ea9b5bb1686f6957725c5cb8946bb878a311f6167b42a49d1e1cccaa631f864736f6c63430007060033",
-  "deployedBytecode": "0x6080604052600436106100345760003560e01c80630e393a16146100395780633ccfd60b1461007e578063d0e30db014610095575b600080fd5b34801561004557600080fd5b5061006c6004803603602081101561005c57600080fd5b50356001600160a01b031661009d565b60408051918252519081900360200190f35b34801561008a57600080fd5b506100936100af565b005b6100936101e9565b60016020526000908152604090205481565b336000908152600160205260409020546100fa5760405162461bcd60e51b815260040180806020018281038252602d815260200180610239602d913960400191505060405180910390fd5b3360008181526001602052604080822054905190929183156108fc02918491818181858888f19350505050158015610136573d6000803e3d6000fd5b5033600081815260016020526040808220829055815481516340c10f1960e01b81526004810194909452600a602485015290516001600160a01b03909116926340c10f1992604480830193919282900301818387803b15801561019857600080fd5b505af11580156101ac573d6000803e3d6000fd5b50506040805184815290513393507f6cca423c6ffc06e62a0acc433965e074b11c28479b0449250ce3ff65ac9e39fe92509081900360200190a250565b33600081815260016020908152604091829020805434908101909155825190815291517f2da466a7b24304f47e87fa2e1e5a81b9831ce54fec19055ce277ca2f39ba42c49281900390910190a256fe506c65617365206465706f7369742066697273742c206265666f726520796f752063616e207769746864726177a2646970667358221220302ea9b5bb1686f6957725c5cb8946bb878a311f6167b42a49d1e1cccaa631f864736f6c63430007060033",
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract Token\",\"name\":\"_token\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Deposited\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Withdrawed\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"depositedEthereum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/kyosifov/learning-projects/ethereum-learning/contracts/Bank.sol\":\"Bank\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/kyosifov/learning-projects/ethereum-learning/contracts/Bank.sol\":{\"keccak256\":\"0xa82268101e204be810e753534990c21d0d312bdcb2b18cb8b978ef22113c9d3c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1b86c0e18475a20c9e8e293564c10e520021ccdc2dffe11203310e34c9796619\",\"dweb:/ipfs/QmPnsv4AbUaPqtESjrcMqsnNhwucDK6mPfZ5zftzJXymqs\"]},\"/Users/kyosifov/learning-projects/ethereum-learning/contracts/Token.sol\":{\"keccak256\":\"0x7b282840f275025f2f180a5917e52a18bee7cfbd67d05c0210fcfcdb068f805a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e6e8825c2143c92bfcd8cee4607d3a149b442d7ebe83919f0c74d44205f168f2\",\"dweb:/ipfs/QmNPXipXAyvfaivBUqqkgBZ6uTGVKJwDwcAiCxrp6V5Rry\"]},\"@openzeppelin/contracts/math/SafeMath.sol\":{\"keccak256\":\"0xcc78a17dd88fa5a2edc60c8489e2f405c0913b377216a5b26b35656b2d0dab52\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://526dc85e1f9b9b45830e202568d267d93dde7a4fcccf4ad7798dadcd92304d3c\",\"dweb:/ipfs/QmaoXMB972J3cSDLtBq3xBo4jLwqD2uzXTwujtSPqkYVhR\"]},\"@openzeppelin/contracts/token/ERC20/ERC20.sol\":{\"keccak256\":\"0xca0c2396dbeb3503b51abf4248ebf77a1461edad513c01529df51850a012bee3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://991b44ff44e0496e8554a90f4c0512c28faed45104d40430019f3c67ea67740e\",\"dweb:/ipfs/Qmc3nRapVbcctELoZS5qe17zLkFB3bETBfwzCTMF1CSuGE\"]},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x5f02220344881ce43204ae4a6281145a67bc52c2bb1290a791857df3d19d78f5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://24427744bd3e6cb73c17010119af12a318289c0253a4d9acb8576c9fb3797b08\",\"dweb:/ipfs/QmTLDqpKRBuxGxRAmjgXt9AkXyACW3MtKzi7PYjm5iMfGC\"]},\"@openzeppelin/contracts/utils/Context.sol\":{\"keccak256\":\"0x8d3cb350f04ff49cfb10aef08d87f19dcbaecc8027b0bed12f3275cd12f38cf0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ded47ec7c96750f9bd04bbbc84f659992d4ba901cb7b532a52cd468272cf378f\",\"dweb:/ipfs/QmfBrGtQP7rZEqEg6Wz6jh2N2Kukpj1z5v3CGWmAqrzm96\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516103003803806103008339818101604052602081101561003357600080fd5b5051600080546001600160a01b039092166001600160a01b031990921691909117905561029b806100656000396000f3fe6080604052600436106100345760003560e01c80630e393a16146100395780633ccfd60b1461007e578063d0e30db014610095575b600080fd5b34801561004557600080fd5b5061006c6004803603602081101561005c57600080fd5b50356001600160a01b031661009d565b60408051918252519081900360200190f35b34801561008a57600080fd5b506100936100af565b005b6100936101e9565b60016020526000908152604090205481565b336000908152600160205260409020546100fa5760405162461bcd60e51b815260040180806020018281038252602d815260200180610239602d913960400191505060405180910390fd5b3360008181526001602052604080822054905190929183156108fc02918491818181858888f19350505050158015610136573d6000803e3d6000fd5b5033600081815260016020526040808220829055815481516340c10f1960e01b81526004810194909452600a602485015290516001600160a01b03909116926340c10f1992604480830193919282900301818387803b15801561019857600080fd5b505af11580156101ac573d6000803e3d6000fd5b50506040805184815290513393507f6cca423c6ffc06e62a0acc433965e074b11c28479b0449250ce3ff65ac9e39fe92509081900360200190a250565b33600081815260016020908152604091829020805434908101909155825190815291517f2da466a7b24304f47e87fa2e1e5a81b9831ce54fec19055ce277ca2f39ba42c49281900390910190a256fe506c65617365206465706f7369742066697273742c206265666f726520796f752063616e207769746864726177a26469706673582212204635f1358dbb3fd84f3333fd95a582624b9941fe8ab315ed45494b1718d40d3964736f6c63430007060033",
+  "deployedBytecode": "0x6080604052600436106100345760003560e01c80630e393a16146100395780633ccfd60b1461007e578063d0e30db014610095575b600080fd5b34801561004557600080fd5b5061006c6004803603602081101561005c57600080fd5b50356001600160a01b031661009d565b60408051918252519081900360200190f35b34801561008a57600080fd5b506100936100af565b005b6100936101e9565b60016020526000908152604090205481565b336000908152600160205260409020546100fa5760405162461bcd60e51b815260040180806020018281038252602d815260200180610239602d913960400191505060405180910390fd5b3360008181526001602052604080822054905190929183156108fc02918491818181858888f19350505050158015610136573d6000803e3d6000fd5b5033600081815260016020526040808220829055815481516340c10f1960e01b81526004810194909452600a602485015290516001600160a01b03909116926340c10f1992604480830193919282900301818387803b15801561019857600080fd5b505af11580156101ac573d6000803e3d6000fd5b50506040805184815290513393507f6cca423c6ffc06e62a0acc433965e074b11c28479b0449250ce3ff65ac9e39fe92509081900360200190a250565b33600081815260016020908152604091829020805434908101909155825190815291517f2da466a7b24304f47e87fa2e1e5a81b9831ce54fec19055ce277ca2f39ba42c49281900390910190a256fe506c65617365206465706f7369742066697273742c206265666f726520796f752063616e207769746864726177a26469706673582212204635f1358dbb3fd84f3333fd95a582624b9941fe8ab315ed45494b1718d40d3964736f6c63430007060033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
   "sourceMap": "88:895:0:-:0;;;317:57;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;317:57:0;353:5;:14;;-1:-1:-1;;;;;353:14:0;;;-1:-1:-1;;;;;;353:14:0;;;;;;;;;88:895;;;;;;",
   "deployedSourceMap": "88:895:0:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;134:52;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;134:52:0;-1:-1:-1;;;;;134:52:0;;:::i;:::-;;;;;;;;;;;;;;;;558:423;;;;;;;;;;;;;:::i;:::-;;380:172;;;:::i;134:52::-;;;;;;;;;;;;;:::o;558:423::-;621:10;635:1;603:29;;;:17;:29;;;;;;595:91;;;;-1:-1:-1;;;595:91:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;737:10;697:19;719:29;;;:17;:29;;;;;;;759:32;;719:29;;737:10;759:32;;;;;719:29;;759:32;697:19;759:32;719:29;737:10;759:32;;;;;;;;;;;;;;;;;;;;-1:-1:-1;820:10:0;834:1;802:29;;;:17;:29;;;;;;:33;;;897:5;;:26;;-1:-1:-1;;;897:26:0;;;;;;;;;920:2;897:26;;;;;;-1:-1:-1;;;;;897:5:0;;;;:10;;:26;;;;;834:1;;897:26;;;;;834:1;897:5;:26;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;939:35:0;;;;;;;;950:10;;-1:-1:-1;939:35:0;;-1:-1:-1;939:35:0;;;;;;;;558:423;:::o;380:172::-;486:10;468:29;;;;:17;:29;;;;;;;;;;;456:9;:41;;;424:73;;;513:32;;;;;;;;;;;;;;;;;380:172::o",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.6.0 <0.9.0;\n\nimport \"./Token.sol\";\n\ncontract Bank {\n    Token private token;\n\n    mapping(address => uint256) public depositedEthereum;\n\n    event Deposited(address indexed sender, uint256 amount);\n    event Withdrawed(address indexed sender, uint256 amount);\n\n    constructor(Token _token) {\n        token = _token;\n    }\n\n    function deposit() public payable {\n        depositedEthereum[msg.sender] = msg.value + depositedEthereum[msg.sender];\n\n        emit Deposited(msg.sender, msg.value);\n    }\n\n    function withdraw() public {\n        require(depositedEthereum[msg.sender] > 0, \"Please deposit first, before you can withdraw\");\n\n        uint256 etherToSend = depositedEthereum[msg.sender];\n\n        msg.sender.transfer(etherToSend);\n\n        depositedEthereum[msg.sender] = 0;\n\n        // send 10 tokens to the user who withdraw\n        token.mint(msg.sender, 10);\n\n        emit Withdrawed(msg.sender, etherToSend);\n    }\n}\n",
-  "sourcePath": "/home/kyosifov/projects/ethereum-learning/contracts/Bank.sol",
+  "sourcePath": "/Users/kyosifov/learning-projects/ethereum-learning/contracts/Bank.sol",
   "ast": {
-    "absolutePath": "/home/kyosifov/projects/ethereum-learning/contracts/Bank.sol",
+    "absolutePath": "/Users/kyosifov/learning-projects/ethereum-learning/contracts/Bank.sol",
     "exportedSymbols": {
       "Bank": [
         105
       ],
       "Context": [
-        1140
+        1173
       ],
       "ERC20": [
-        1039
+        1072
       ],
       "IERC20": [
-        1117
+        1150
       ],
       "SafeMath": [
-        536
+        569
       ],
       "Token": [
-        181
+        214
       ]
     },
     "id": 106,
@@ -137,12 +137,12 @@
         "src": "32:31:0"
       },
       {
-        "absolutePath": "/home/kyosifov/projects/ethereum-learning/contracts/Token.sol",
+        "absolutePath": "/Users/kyosifov/learning-projects/ethereum-learning/contracts/Token.sol",
         "file": "./Token.sol",
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 106,
-        "sourceUnit": 182,
+        "sourceUnit": 215,
         "src": "65:21:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -171,17 +171,17 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_Token_$181",
+              "typeIdentifier": "t_contract$_Token_$214",
               "typeString": "contract Token"
             },
             "typeName": {
               "id": 3,
               "name": "Token",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 181,
+              "referencedDeclaration": 214,
               "src": "108:5:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Token_$181",
+                "typeIdentifier": "t_contract$_Token_$214",
                 "typeString": "contract Token"
               }
             },
@@ -392,7 +392,7 @@
                       "referencedDeclaration": 4,
                       "src": "353:5:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_Token_$181",
+                        "typeIdentifier": "t_contract$_Token_$214",
                         "typeString": "contract Token"
                       }
                     },
@@ -406,13 +406,13 @@
                       "referencedDeclaration": 22,
                       "src": "361:6:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_Token_$181",
+                        "typeIdentifier": "t_contract$_Token_$214",
                         "typeString": "contract Token"
                       }
                     },
                     "src": "353:14:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_Token_$181",
+                      "typeIdentifier": "t_contract$_Token_$214",
                       "typeString": "contract Token"
                     }
                   },
@@ -443,17 +443,17 @@
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_Token_$181",
+                    "typeIdentifier": "t_contract$_Token_$214",
                     "typeString": "contract Token"
                   },
                   "typeName": {
                     "id": 21,
                     "name": "Token",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 181,
+                    "referencedDeclaration": 214,
                     "src": "329:5:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_Token_$181",
+                      "typeIdentifier": "t_contract$_Token_$214",
                       "typeString": "contract Token"
                     }
                   },
@@ -1243,7 +1243,7 @@
                         "referencedDeclaration": 4,
                         "src": "897:5:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_Token_$181",
+                          "typeIdentifier": "t_contract$_Token_$214",
                           "typeString": "contract Token"
                         }
                       },
@@ -1254,7 +1254,7 @@
                       "lValueRequested": false,
                       "memberName": "mint",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 180,
+                      "referencedDeclaration": 213,
                       "src": "897:10:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$__$",
@@ -1399,25 +1399,25 @@
   },
   "legacyAST": {
     "attributes": {
-      "absolutePath": "/home/kyosifov/projects/ethereum-learning/contracts/Bank.sol",
+      "absolutePath": "/Users/kyosifov/learning-projects/ethereum-learning/contracts/Bank.sol",
       "exportedSymbols": {
         "Bank": [
           105
         ],
         "Context": [
-          1140
+          1173
         ],
         "ERC20": [
-          1039
+          1072
         ],
         "IERC20": [
-          1117
+          1150
         ],
         "SafeMath": [
-          536
+          569
         ],
         "Token": [
-          181
+          214
         ]
       },
       "license": "MIT"
@@ -1441,8 +1441,8 @@
       },
       {
         "attributes": {
-          "SourceUnit": 182,
-          "absolutePath": "/home/kyosifov/projects/ethereum-learning/contracts/Token.sol",
+          "SourceUnit": 215,
+          "absolutePath": "/Users/kyosifov/learning-projects/ethereum-learning/contracts/Token.sol",
           "file": "./Token.sol",
           "scope": 106,
           "symbolAliases": [
@@ -1487,7 +1487,7 @@
               {
                 "attributes": {
                   "name": "Token",
-                  "referencedDeclaration": 181,
+                  "referencedDeclaration": 214,
                   "type": "contract Token"
                 },
                 "id": 3,
@@ -1723,7 +1723,7 @@
                       {
                         "attributes": {
                           "name": "Token",
-                          "referencedDeclaration": 181,
+                          "referencedDeclaration": 214,
                           "type": "contract Token"
                         },
                         "id": 21,
@@ -2649,7 +2649,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "mint",
-                              "referencedDeclaration": 180,
+                              "referencedDeclaration": 213,
                               "type": "function (address,uint256) external"
                             },
                             "children": [
@@ -2882,12 +2882,12 @@
         }
       },
       "links": {},
-      "address": "0x6b3CD8B7AcAF61A4b9B251F2C7A650962a5cA6F0",
-      "transactionHash": "0xc2c377c79abe8f5c0e6367f0919e36b7efa3f529f38d176cb628525f96909c55"
+      "address": "0xDa3000391DFF27161F0426eD7836b0824a62D3CE",
+      "transactionHash": "0x1be00e0ec5a4ab656470a60475e916ed3f2f6af02e598c798ae6b57f845da3e8"
     }
   },
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-02-28T19:35:17.261Z",
+  "updatedAt": "2021-03-01T17:41:58.959Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

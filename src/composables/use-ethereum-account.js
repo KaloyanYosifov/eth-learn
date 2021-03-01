@@ -1,8 +1,7 @@
 /**
  * External dependencies.
  */
-import { computed, ref, watch } from 'vue';
-import { useQuery } from '@cytools/vue-query';
+import { useMutation, useQuery } from '@cytools/vue-query';
 
 /**
  * Internal dependencies.
@@ -10,9 +9,24 @@ import { useQuery } from '@cytools/vue-query';
 import useEthereum from '@/composables/use-ethereum';
 
 export default function useEthereumAccount() {
-    const { web3, accountsQuery } = useEthereum();
-    const { data: accounts } = accountsQuery;
-    const account = ref(null);
+    const { web3 } = useEthereum();
+    const {
+        data: account,
+        updateQueryData,
+    } = useQuery(
+        'active-ethereum-account',
+        () => Promise.resolve(window.localStorage.getItem('active-ethereum-account')),
+    );
+    const { mutate: selectAccount } = useMutation(
+        (acc) => {
+            window.localStorage.setItem('active-ethereum-account', acc);
+
+            return Promise.resolve(acc);
+        },
+        {
+            onSuccess: acc => updateQueryData(() => acc),
+        },
+    );
     const balanceQuery = useQuery(
         ['ethereum-account', account],
         async acc => {
@@ -24,16 +38,9 @@ export default function useEthereumAccount() {
         },
     );
 
-    watch(accounts, newAccounts => {
-        if (!newAccounts.length) {
-            return;
-        }
-
-        account.value = newAccounts[0];
-    });
-
     return {
+        account,
         balanceQuery,
-        account: computed(() => account.value),
+        selectAccount,
     };
 }

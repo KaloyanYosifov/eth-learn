@@ -13,13 +13,25 @@ export default function useEthereum() {
 
         web3 = new Web3(window.ethereum);
     }
+
     const accountsQuery = useQuery(
         'ethereum-accounts',
         web3.eth.getAccounts,
         {
+            manual: true,
             defaultData: [],
         },
     );
+    const initBlockChain = async () => {
+        try {
+            await web3.eth.requestAccounts();
+        } catch (error) {
+            throw new Error('Cannot proceed without enabling metamask!');
+        }
+        await accountsQuery.fetchFromCacheOrRefetch();
+    };
+
+    void initBlockChain();
 
     return {
         web3,

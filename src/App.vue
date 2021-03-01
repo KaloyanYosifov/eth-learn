@@ -1,45 +1,30 @@
 <template>
-  <div>
-    Balance: {{ balance }}
+  <div class="d-flex flex-column">
+    <div class="container-fluid">
+      <accounts-picker v-if="!account" />
+    </div>
   </div>
-  <ul v-if="accounts" class="accounts">
-    <li v-for="account in accounts" :key="account">{{ account }}</li>
-  </ul>
 </template>
 
 <script>
 /**
- * External dependencies.
- */
-import { watch } from 'vue';
-
-/**
  * Internal dependencies.
  */
-import useEthereum from '@/composables/use-ethereum';
 import useEthereumAccount from '@/composables/use-ethereum-account';
-import useBank from '@/composables/use-bank';
+import AccountsPicker from '@/components/accounts-picker/accounts-picker';
 
 export default {
   name: 'App',
 
+  components: {
+    AccountsPicker,
+  },
+
   setup() {
-    const { bankQuery: { data: bank } } = useBank();
-    const { web3, accountsQuery: { data: accounts } } = useEthereum();
-    const { account, balanceQuery: { data: balance } } = useEthereumAccount();
-
-    watch([account, bank], async ([acc, bk]) => {
-      if (!acc || !bk) {
-        return;
-      }
-
-      await bk.methods.deposit().send({ value: web3.utils.toWei('0.02', 'ether'), from: acc });
-      await bk.methods.withdraw().send({ value: web3.utils.toWei('0', 'ether'), from: acc });
-    });
+    const { account } = useEthereumAccount();
 
     return {
-      balance,
-      accounts,
+      account,
     };
   },
 };
