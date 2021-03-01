@@ -1,23 +1,22 @@
 <template>
-  <div class="d-flex flex-column">
-    <div class="container-fluid">
-      <accounts-picker v-if="!account" />
-    </div>
-  </div>
+  <has-account v-if="account" />
+  <no-account v-else />
 </template>
 
 <script>
 /**
  * Internal dependencies.
  */
+import NoAccount from '@/components/no-account/no-account';
+import HasAccount from '@/components/has-account/has-account';
 import useEthereumAccount from '@/composables/use-ethereum-account';
-import AccountsPicker from '@/components/accounts-picker/accounts-picker';
 
 export default {
   name: 'App',
 
   components: {
-    AccountsPicker,
+    NoAccount,
+    HasAccount,
   },
 
   setup() {
