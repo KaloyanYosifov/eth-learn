@@ -1,7 +1,8 @@
 <template>
   <form-input
-      v-bind="$attrs"
+      v-bind="attributesWithoutListeners"
       type="number"
+      step="any"
       :max="max"
       :min="min"
       :value="localValue"
@@ -46,8 +47,17 @@ export default {
     },
   },
 
-  setup(props, { emit }) {
+  setup(props, { attrs, emit }) {
     const localValue = ref(0);
+    const attributesWithoutListeners = {};
+
+    Object.keys(attrs).forEach(attrKey => {
+      if (attrKey.startsWith('on')) {
+        return;
+      }
+
+      attributesWithoutListeners[attrKey] = attrs[attrKey];
+    });
 
     const onInput = value => {
       localValue.value = Number(value);
@@ -58,7 +68,8 @@ export default {
         localValue.value = Number(props.min);
       }
 
-      emit('input', localValue.value);
+      emit('input', Number(localValue.value));
+      emit('update:value', Number(localValue.value));
     };
 
     watch(() => props.value, newValue => {
@@ -67,11 +78,12 @@ export default {
       }
 
       localValue.value = Number(newValue);
-    });
+    }, { immediate: true });
 
     return {
       onInput,
       localValue,
+      attributesWithoutListeners,
     };
   },
 };

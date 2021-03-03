@@ -20,6 +20,7 @@ import DepositForm from '@/components/deposit-form/deposit-form';
 
 export default {
   name: 'BankForm',
+
   components: { DepositForm },
 };
 </script>

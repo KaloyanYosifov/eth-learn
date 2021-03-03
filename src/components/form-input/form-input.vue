@@ -2,7 +2,7 @@
   <input
       class="form-control form-control-user"
       v-bind="{...attributesWithoutListeners, ...$props}"
-      @input="$emit('input', $event.target.value)"
+      @input="onInput"
   />
 </template>
 
@@ -24,8 +24,12 @@ export default {
     },
   },
 
-  setup(props, { attrs }) {
+  setup(props, { attrs, emit }) {
     const attributesWithoutListeners = {};
+    const onInput = event => {
+      emit('input', event.target.value);
+      emit('update:value', event.target.value);
+    };
 
     Object.keys(attrs).forEach(attrKey => {
       if (attrKey.startsWith('on')) {
@@ -36,6 +40,7 @@ export default {
     });
 
     return {
+      onInput,
       attributesWithoutListeners,
     };
   },
