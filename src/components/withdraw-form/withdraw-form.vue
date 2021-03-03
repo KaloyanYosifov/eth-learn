@@ -1,14 +1,13 @@
 <template>
   <form class="user" @submit.prevent="onSubmit">
     <div class="text-center">
-      <h1 class="h4 text-gray-900 mb-4">Amount to deposit!</h1>
+      <h1 class="h4 text-gray-900 mb-4">Amount to withdraw!</h1>
     </div>
 
     <div class="form-group">
       <number-form-input
           type="number"
           placeholder="amount"
-          :max="50"
           :min="0.001"
           v-model:value="depositAmount"
       />
@@ -16,7 +15,7 @@
 
     <div class="form-group">
       <button type="submit" class="btn btn-primary btn-user btn-block">
-        Deposit
+        Withdraw
       </button>
     </div>
   </form>
@@ -35,7 +34,7 @@ import useBank from '@/composables/use-bank';
 import NumberFormInput from '@/components/number-form-input/number-form-input';
 
 export default {
-  name: 'DepositForm',
+  name: 'WithdrawForm',
 
   components: {
     NumberFormInput,
@@ -44,13 +43,8 @@ export default {
   setup() {
     const depositAmount = ref(0.001);
     const { depositMutation: { mutate } } = useBank();
-    const onSubmit = async () => {
-      try {
-        await mutate(depositAmount.value);
-        alert('Successfully deposited!');
-      } catch (e) {
-        alert(e.message);
-      }
+    const onSubmit = () => {
+      mutate(depositAmount.value);
     };
 
     return {

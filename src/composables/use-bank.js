@@ -33,7 +33,6 @@ export default function useBank() {
             return amount;
         },
         {
-            onError: error => alert(error.message),
             onSuccess: amount => updateQueryData(balance => balance - amount),
         },
     );
