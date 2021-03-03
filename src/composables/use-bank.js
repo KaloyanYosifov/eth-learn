@@ -12,7 +12,7 @@ import useEthereumAccount from '@/composables/use-ethereum-account';
 
 export default function useBank() {
     const { web3 } = useEthereum();
-    const { account, balanceQuery: { updateQueryData } } = useEthereumAccount();
+    const { account, balanceQuery: { updateQueryData, refetch } } = useEthereumAccount();
     const bankQuery = useQuery(
         'bank',
         async () => {
@@ -24,11 +24,9 @@ export default function useBank() {
     const bank = bankQuery.data;
     const depositMutation = useMutation(
         async (amount) => {
-            const result = await bank.value.methods
+            await bank.value.methods
                 .deposit()
                 .send({ value: web3.utils.toWei(amount.toString(), 'ether'), from: account.value });
-
-            console.log(result);
 
             return amount;
         },
@@ -36,9 +34,19 @@ export default function useBank() {
             onSuccess: amount => updateQueryData(balance => balance - amount),
         },
     );
+    const withdrawMutation = useMutation(
+        async () => {
+            await bank.value.methods
+                .withdraw()
+                .send({ from: account.value });
+
+            await refetch();
+        },
+    );
 
     return {
         bankQuery,
         depositMutation,
+        withdrawMutation,
     };
 }

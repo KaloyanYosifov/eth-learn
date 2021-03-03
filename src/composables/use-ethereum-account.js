@@ -7,6 +7,7 @@ import { useMutation, useQuery } from '@cytools/vue-query';
  * Internal dependencies.
  */
 import useEthereum from '@/composables/use-ethereum';
+import useKokoToken from '@/composables/use-koko-token';
 
 export default function useEthereumAccount() {
     const { web3 } = useEthereum();
@@ -17,6 +18,7 @@ export default function useEthereumAccount() {
         'active-ethereum-account',
         () => Promise.resolve(window.localStorage.getItem('active-ethereum-account')),
     );
+    const { tokenQuery: { data: token } } = useKokoToken();
     const { mutate: selectAccount } = useMutation(
         (acc) => {
             window.localStorage.setItem('active-ethereum-account', acc);
@@ -28,7 +30,7 @@ export default function useEthereumAccount() {
         },
     );
     const balanceQuery = useQuery(
-        ['ethereum-account', account],
+        ['ethereum-account-balance', account],
         async acc => {
             if (!acc) {
                 return null;
@@ -37,10 +39,24 @@ export default function useEthereumAccount() {
             return web3.utils.fromWei(await web3.eth.getBalance(acc));
         },
     );
+    const kokoTokenBalanceQuery = useQuery(
+        ['account-koko-token-balance', account, token],
+        async (acc, tok) => {
+            if (!acc || !tok) {
+                return null;
+            }
+
+            return web3.utils.fromWei(await tok.methods.balanceOf(acc).call({ from: acc }));
+        },
+        {
+            onError: error => alert(error.message),
+        },
+    );
 
     return {
         account,
         balanceQuery,
         selectAccount,
+        kokoTokenBalanceQuery,
     };
 }

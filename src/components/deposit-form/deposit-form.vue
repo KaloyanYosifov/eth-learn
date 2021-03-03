@@ -15,8 +15,21 @@
     </div>
 
     <div class="form-group">
-      <button type="submit" class="btn btn-primary btn-user btn-block">
-        Deposit
+      <button
+          type="submit"
+          class="btn btn-primary btn-user btn-block"
+      >
+        <template v-if="!isDepositing">
+          Deposit
+        </template>
+
+        <span v-else class="d-flex justify-content-center">
+          <half-circle-spinner
+              :animation-duration="1000"
+              :size="16"
+              color="#fff"
+          />
+        </span>
       </button>
     </div>
   </form>
@@ -27,6 +40,7 @@
  * External dependencies.
  */
 import { ref } from 'vue';
+import { HalfCircleSpinner } from 'epic-spinners';
 
 /**
  * Internal dependencies.
@@ -39,14 +53,18 @@ export default {
 
   components: {
     NumberFormInput,
+    HalfCircleSpinner,
   },
 
   setup() {
     const depositAmount = ref(0.001);
-    const { depositMutation: { mutate } } = useBank();
+    const { depositMutation: { mutate: deposit, isLoading: isDepositing } } = useBank();
     const onSubmit = async () => {
       try {
-        await mutate(depositAmount.value);
+        await deposit(depositAmount.value);
+
+        depositAmount.value = 0.001;
+
         alert('Successfully deposited!');
       } catch (e) {
         alert(e.message);
@@ -55,6 +73,7 @@ export default {
 
     return {
       onSubmit,
+      isDepositing,
       depositAmount,
     };
   },

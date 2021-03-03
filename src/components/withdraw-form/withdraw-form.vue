@@ -1,21 +1,22 @@
 <template>
   <form class="user" @submit.prevent="onSubmit">
     <div class="text-center">
-      <h1 class="h4 text-gray-900 mb-4">Amount to withdraw!</h1>
-    </div>
-
-    <div class="form-group">
-      <number-form-input
-          type="number"
-          placeholder="amount"
-          :min="0.001"
-          v-model:value="depositAmount"
-      />
+      <h1 class="h4 text-gray-900 mb-4">Click button to withdraw!</h1>
     </div>
 
     <div class="form-group">
       <button type="submit" class="btn btn-primary btn-user btn-block">
-        Withdraw
+        <template v-if="!isWithdrawing">
+          Withdraw
+        </template>
+
+        <span v-else class="d-flex justify-content-center">
+          <half-circle-spinner
+              :animation-duration="1000"
+              :size="16"
+              color="#fff"
+          />
+        </span>
       </button>
     </div>
   </form>
@@ -25,31 +26,34 @@
 /**
  * External dependencies.
  */
-import { ref } from 'vue';
+import { HalfCircleSpinner } from 'epic-spinners';
 
 /**
  * Internal dependencies.
  */
 import useBank from '@/composables/use-bank';
-import NumberFormInput from '@/components/number-form-input/number-form-input';
 
 export default {
   name: 'WithdrawForm',
 
   components: {
-    NumberFormInput,
+    HalfCircleSpinner,
   },
 
   setup() {
-    const depositAmount = ref(0.001);
-    const { depositMutation: { mutate } } = useBank();
-    const onSubmit = () => {
-      mutate(depositAmount.value);
+    const { withdrawMutation: { mutate: withdraw, isLoading: isWithdrawing } } = useBank();
+    const onSubmit = async () => {
+      try {
+        await withdraw();
+        alert('Successfully withdrawed!');
+      } catch (e) {
+        alert(e.message);
+      }
     };
 
     return {
       onSubmit,
-      depositAmount,
+      isWithdrawing,
     };
   },
 };
