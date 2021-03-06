@@ -50,9 +50,19 @@ export default function useBank() {
             ]);
         },
     );
+    const borrowMutation = useMutation(
+        async (amount) => {
+            await bank.value.methods
+                .borrow(web3.utils.toWei(amount.toString(), 'ether'))
+                .send({ from: account.value });
+
+            await refetchKokoTokenBalance();
+        },
+    );
 
     return {
         bankQuery,
+        borrowMutation,
         depositMutation,
         withdrawMutation,
     };

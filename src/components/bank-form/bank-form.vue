@@ -3,15 +3,24 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1>Bank</h1>
 
-      <button class=" btn btn-sm btn-primary" @click="isDepositing = !isDepositing">
-        {{ isDepositing ? 'Go To Wihdraw' : 'Go To Deposit' }}
+      <button v-if="currentFormState !== 'deposit'" class=" btn btn-sm btn-primary" @click="currentFormState = 'deposit'">
+        Go To Deposit
+      </button>
+
+      <button v-if="currentFormState !== 'withdraw'" class=" btn btn-sm btn-primary" @click="currentFormState = 'withdraw'">
+        Go To Withdraw
+      </button>
+
+      <button v-if="currentFormState !== 'borrow'" class=" btn btn-sm btn-primary" @click="currentFormState = 'borrow'">
+        Go To Borrow
       </button>
     </div>
 
     <div class="card-body d-flex justify-content-center">
       <div class="p-5 w-100" style="max-width: 500px;">
-        <deposit-form v-if="isDepositing" />
-        <withdraw-form v-else />
+        <deposit-form v-if="currentFormState === 'deposit'" />
+        <withdraw-form v-if="currentFormState === 'withdraw'" />
+        <borrow-form v-if="currentFormState === 'borrow'" />
       </div>
     </div>
   </div>
@@ -26,6 +35,7 @@ import { ref } from 'vue';
 /**
  * Internal dependencies.
  */
+import BorrowForm from '@/components/borrow-form/borrow-form';
 import DepositForm from '@/components/deposit-form/deposit-form';
 import WithdrawForm from '@/components/withdraw-form/withdraw-form';
 
@@ -33,15 +43,16 @@ export default {
   name: 'BankForm',
 
   components: {
+    BorrowForm,
     WithdrawForm,
     DepositForm,
   },
 
   setup() {
-    const isDepositing = ref(true);
+    const currentFormState = ref('deposit');
 
     return {
-      isDepositing,
+      currentFormState,
     };
   },
 };
