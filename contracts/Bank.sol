@@ -6,10 +6,12 @@ import "./Token.sol";
 contract Bank {
     Token private token;
 
+    mapping(address => bool) public borrowers;
     mapping(address => uint256) public depositedEthereum;
 
     event Deposited(address indexed sender, uint256 amount);
     event Withdrawed(address indexed sender, uint256 amount);
+    event Borrowed(address indexed borrower, uint256 amount);
 
     constructor(Token _token) {
         token = _token;
@@ -34,5 +36,14 @@ contract Bank {
         token.mint(msg.sender, 10);
 
         emit Withdrawed(msg.sender, etherToSend);
+    }
+
+    function borrow(uint256 amount) public payable {
+        require(borrowers[msg.sender] == false, "You have already borrowed some money");
+
+        token.mint(msg.sender, amount);
+        borrowers[msg.sender] = true;
+
+        emit Borrowed(msg.sender, amount);
     }
 }

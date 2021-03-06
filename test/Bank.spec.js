@@ -50,6 +50,29 @@ contract('Bank', async ([deployer, account]) => {
         expect(Number(await web3.eth.getBalance(account))).to.be.greaterThan(previousBalanceOfAccount);
     });
 
+    it('can lend money in Koko Tokens', async () => {
+        expect(Number(await token.balanceOf(account))).to.equal(0);
+
+        await bank.borrow(web3.utils.toWei('50'), { from: account });
+
+        expect(Number(web3.utils.fromWei(await token.balanceOf(account)))).to.equal(50);
+    });
+
+    it.only('can not lend money twice to the same account', async () => {
+        expect(Number(await token.balanceOf(account))).to.equal(0);
+
+        await bank.borrow(web3.utils.toWei('50'), { from: account });
+
+        expect(Number(web3.utils.fromWei(await token.balanceOf(account)))).to.equal(50);
+
+        await bank.borrow(web3.utils.toWei('20'), { from: account })
+            .should
+            .be
+            .rejectedWith(solidityError('You have already borrowed some money'));
+
+        expect(Number(web3.utils.fromWei(await token.balanceOf(account)))).to.equal(50);
+    });
+
     it('throws an error if the user tries to withdraw but never has deposited', async () => {
         await bank.withdraw({ from: account }).should.be.rejectedWith(solidityError('Please deposit first, before you can withdraw'));
     });
