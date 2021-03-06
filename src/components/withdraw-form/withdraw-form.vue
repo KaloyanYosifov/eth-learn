@@ -43,12 +43,14 @@ export default {
   setup() {
     const { withdrawMutation: { mutate: withdraw, isLoading: isWithdrawing } } = useBank();
     const onSubmit = async () => {
-      try {
-        await withdraw();
-        alert('Successfully withdrawed!');
-      } catch (e) {
-        alert(e.message);
+      const { isError } = await withdraw();
+
+      if (isError.value) {
+        alert('Transaction has been declined!');
+        return;
       }
+
+      alert('Successfully withdrawed!');
     };
 
     return {

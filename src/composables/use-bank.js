@@ -12,7 +12,11 @@ import useEthereumAccount from '@/composables/use-ethereum-account';
 
 export default function useBank() {
     const { web3 } = useEthereum();
-    const { account, balanceQuery: { updateQueryData, refetch } } = useEthereumAccount();
+    const {
+        account,
+        balanceQuery: { updateQueryData, refetch: refetchBalance },
+        kokoTokenBalanceQuery: { refetch: refetchKokoTokenBalance },
+    } = useEthereumAccount();
     const bankQuery = useQuery(
         'bank',
         async () => {
@@ -40,7 +44,10 @@ export default function useBank() {
                 .withdraw()
                 .send({ from: account.value });
 
-            await refetch();
+            await Promise.all([
+                refetchBalance(),
+                refetchKokoTokenBalance(),
+            ]);
         },
     );
 
