@@ -8,7 +8,7 @@ import chai, { expect } from 'chai';
  */
 const Bank = artifacts.require('Bank');
 const Token = artifacts.require('Token');
-import { solidityError } from './helpers';
+import { getKokoBalanceFromAddress, solidityError } from './helpers';
 
 chai
     .use(require('chai-as-promised'))
@@ -75,5 +75,18 @@ contract('Bank', async ([deployer, account]) => {
 
     it('throws an error if the user tries to withdraw but never has deposited', async () => {
         await bank.withdraw({ from: account }).should.be.rejectedWith(solidityError('Please deposit first, before you can withdraw'));
+    });
+
+    it('can return borrowed money to bank', async () => {
+        await bank.borrow(web3.utils.toWei('50'), { from: account });
+
+        expect(await getKokoBalanceFromAddress(token, account)).to.equal(50);
+        expect(await getKokoBalanceFromAddress(token, bank.address)).to.equal(0);
+
+        await token.approve(bank.address, web3.utils.toWei('50'), { from: account });
+        await bank.returnBorrowedMoney(web3.utils.toWei('50'), { from: account });
+
+        expect(await getKokoBalanceFromAddress(token, account)).to.equal(0);
+        expect(await getKokoBalanceFromAddress(token, bank.address)).to.equal(50);
     });
 });

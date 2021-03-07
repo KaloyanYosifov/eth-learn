@@ -6,12 +6,13 @@ import "./Token.sol";
 contract Bank {
     Token private token;
 
-    mapping(address => bool) public borrowers;
+    mapping(address => uint256) public borrowers;
     mapping(address => uint256) public depositedEthereum;
 
     event Deposited(address indexed sender, uint256 amount);
     event Withdrawed(address indexed sender, uint256 amount);
     event Borrowed(address indexed borrower, uint256 amount);
+    event Returned(address indexed returner, address indexed receiver, uint256 amount);
 
     constructor(Token _token) {
         token = _token;
@@ -39,11 +40,25 @@ contract Bank {
     }
 
     function borrow(uint256 amount) public payable {
-        require(borrowers[msg.sender] == false, "You have already borrowed some money");
+        require(borrowers[msg.sender] == 0, "You have already borrowed some money");
 
         token.mint(msg.sender, amount);
-        borrowers[msg.sender] = true;
+        borrowers[msg.sender] = amount;
 
         emit Borrowed(msg.sender, amount);
+    }
+
+    function returnBorrowedMoney(uint256 amount) public payable {
+        require(borrowers[msg.sender] > 0, "You haven't borrowed money yet!");
+        require(amount <= borrowers[msg.sender] && amount > 0, "Unsufficient funds");
+
+        token.transferFrom(msg.sender, address(this), amount);
+        borrowers[msg.sender] = borrowers[msg.sender] - amount;
+
+        emit Returned(msg.sender, address(this), amount);
+    }
+
+    function getKokoTokenBalance() public returns (uint256) {
+        return token.balanceOf(address(this));
     }
 }
