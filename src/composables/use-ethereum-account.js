@@ -41,13 +41,7 @@ export default function useEthereumAccount() {
     );
     const kokoTokenBalanceQuery = useQuery(
         ['account-koko-token-balance', account, token],
-        async (acc, tok) => {
-            if (!acc || !tok) {
-                return null;
-            }
-
-            return web3.utils.fromWei(await tok.methods.balanceOf(acc).call({ from: acc }));
-        },
+        async (acc, tok) => web3.utils.fromWei(await tok.methods.balanceOf(acc).call({ from: acc })),
         {
             onError: error => alert(error.message),
         },
