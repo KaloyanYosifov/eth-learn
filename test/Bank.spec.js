@@ -58,7 +58,7 @@ contract('Bank', async ([deployer, account]) => {
         expect(Number(web3.utils.fromWei(await token.balanceOf(account)))).to.equal(50);
     });
 
-    it.only('can not lend money twice to the same account', async () => {
+    it('can not lend money twice to the same account', async () => {
         expect(Number(await token.balanceOf(account))).to.equal(0);
 
         await bank.borrow(web3.utils.toWei('50'), { from: account });
@@ -88,5 +88,28 @@ contract('Bank', async ([deployer, account]) => {
 
         expect(await getKokoBalanceFromAddress(token, account)).to.equal(0);
         expect(await getKokoBalanceFromAddress(token, bank.address)).to.equal(50);
+    });
+
+    it('cannot return borrowed money if never borrowed', async () => {
+        await bank.returnBorrowedMoney(web3.utils.toWei('1'), { from: account })
+            .should
+            .be
+            .rejectedWith(solidityError('You haven\'t borrowed money yet!'));
+    });
+
+    it('cannot return money less than 1', async () => {
+        await bank.borrow(web3.utils.toWei('10'), { from: account });
+        await bank.returnBorrowedMoney(0, { from: account })
+            .should
+            .be
+            .rejectedWith(solidityError('Please enter an amount greater than 0!'));
+    });
+
+    it('cannot return money greater than borrowed', async () => {
+        await bank.borrow(web3.utils.toWei('10'), { from: account });
+        await bank.returnBorrowedMoney(web3.utils.toWei('11'), { from: account })
+            .should
+            .be
+            .rejectedWith(solidityError('Cannot return money greater than the borrowed!'));
     });
 });

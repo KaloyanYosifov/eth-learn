@@ -50,7 +50,8 @@ contract Bank {
 
     function returnBorrowedMoney(uint256 amount) public payable {
         require(borrowers[msg.sender] > 0, "You haven't borrowed money yet!");
-        require(amount <= borrowers[msg.sender] && amount > 0, "Unsufficient funds");
+        require(amount > 0, "Please enter an amount greater than 0!");
+        require(amount <= borrowers[msg.sender], "Cannot return money greater than the borrowed!");
 
         token.transferFrom(msg.sender, address(this), amount);
         borrowers[msg.sender] = borrowers[msg.sender] - amount;
