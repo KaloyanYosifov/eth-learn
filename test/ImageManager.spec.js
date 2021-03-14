@@ -20,7 +20,7 @@ contract('Token', async ([deployer, account]) => {
     });
 
     it.only('can add image', async () => {
-        expect(Number(await imageManager.imagesCount(account))).to.equal(0);
+        expect(Number(await imageManager.getImagesCountForAccount({ from: account }))).to.equal(0);
 
         await imageManager.addImage(
             'https://image.shutterstock.com/image-photo/washington-dc-usa-jan-6th-260nw-1888591864.jpg',
@@ -28,6 +28,6 @@ contract('Token', async ([deployer, account]) => {
             { from: account },
         );
 
-        expect(Number(await imageManager.imagesCount(account))).to.equal(1);
+        expect(Number(await imageManager.getImagesCountForAccount({ from: account }))).to.equal(1);
     });
 });

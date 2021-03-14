@@ -9,31 +9,34 @@ contract ImageManager {
     }
 
     mapping(address => uint) pendingWithdrawals;
-    mapping(address => uint) public imagesCount;
-    mapping(address => mapping(uint => Image)) public images;
+    mapping(address => bytes32[]) public imagesToAccount;
+    mapping(address => mapping(bytes32 => Image)) public images;
 
     function addImage(string memory _url, uint256 _price) public payable {
         bytes32 imageId = keccak256(abi.encode(_url, _price, msg.sender, blockhash(block.number)));
 
-        images[msg.sender][imagesCount[msg.sender]] = Image(imageId, _url, _price);
-        imagesCount[msg.sender] += 1;
+        images[msg.sender][imageId] = Image(imageId, _url, _price);
+        imagesToAccount[msg.sender].push(imageId);
     }
 
     function buyImage(bytes32 _imageId, address _sellerAddress) public payable {
-        Image memory image;
-        uint imageIndex;
+        uint foundImageIndex = 0;
+        bool foundImage = false;
 
-        for (uint i = 0; i < imagesCount[_sellerAddress]; i++) {
-            if (images[_sellerAddress][i].id == _imageId) {
-                image = images[_sellerAddress][i];
-                imageIndex = i;
+        for (uint i = 0; i < imagesToAccount[_sellerAddress].length; i++) {
+            bytes32 currentImageId = imagesToAccount[_sellerAddress][i];
+
+            if (currentImageId == _imageId) {
+                foundImageIndex = i;
+                foundImage = true;
             }
         }
 
-        require(image.id != 0, "Image not found!");
+        require(foundImage == true, "Image not found!");
 
         // remove the image from the seller
-        delete images[_sellerAddress][imageIndex];
+        delete images[_sellerAddress][_imageId];
+        delete imagesToAccount[_sellerAddress][foundImageIndex];
 
         // add a pending withdraw for seller
         pendingWithdrawals[_sellerAddress] += msg.value;
@@ -43,5 +46,9 @@ contract ImageManager {
         uint amount = pendingWithdrawals[msg.sender];
         pendingWithdrawals[msg.sender] = 0;
         msg.sender.transfer(amount);
+    }
+
+    function getImagesCountForAccount() public view returns (uint imageCount) {
+        return imagesToAccount[msg.sender].length;
     }
 }
