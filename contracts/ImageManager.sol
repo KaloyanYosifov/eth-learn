@@ -12,10 +12,10 @@ contract ImageManager {
     mapping(address => bytes32[]) public imagesToAccount;
     mapping(address => mapping(bytes32 => Image)) public images;
 
-    function addImage(string memory _url, uint256 _price) public payable {
-        bytes32 imageId = keccak256(abi.encode(_url, _price, msg.sender, blockhash(block.number)));
+    function addImage(string memory _url) public payable {
+        bytes32 imageId = keccak256(abi.encode(_url, msg.value, msg.sender, blockhash(block.number)));
 
-        images[msg.sender][imageId] = Image(imageId, _url, _price);
+        images[msg.sender][imageId] = Image(imageId, _url, msg.value);
         imagesToAccount[msg.sender].push(imageId);
     }
 
@@ -34,12 +34,27 @@ contract ImageManager {
 
         require(foundImage == true, "Image not found!");
 
+        // move image to buyer
+        Image memory imageBought = images[_sellerAddress][_imageId];
+        images[msg.sender][_imageId] = imageBought;
+        imagesToAccount[msg.sender].push(_imageId);
+
         // remove the image from the seller
         delete images[_sellerAddress][_imageId];
-        delete imagesToAccount[_sellerAddress][foundImageIndex];
+
+        // update the new images account of the seller
+        bytes32[] storage newImagesToAccount;
+        for (uint i = 0; i < imagesToAccount[_sellerAddress].length; i++) {
+            if (foundImageIndex == i) {
+                continue;
+            }
+
+            newImagesToAccount.push(imagesToAccount[_sellerAddress][i]);
+        }
+        imagesToAccount[_sellerAddress] = newImagesToAccount;
 
         // add a pending withdraw for seller
-        pendingWithdrawals[_sellerAddress] += msg.value;
+        pendingWithdrawals[_sellerAddress] += imageBought.price;
     }
 
     function withdraw() public {
