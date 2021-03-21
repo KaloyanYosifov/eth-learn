@@ -1,7 +1,7 @@
 <template>
   <form class="user" @submit.prevent="onSubmit">
     <div class="text-center">
-      <h1 class="h4 text-gray-900 mb-4">Amount to deposit!</h1>
+      <h1 class="h4 text-gray-900 mb-4">Add an image!</h1>
     </div>
 
     <div class="form-group">
