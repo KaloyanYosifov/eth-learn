@@ -49,7 +49,7 @@ contract('Token', async ([deployer, account, investor]) => {
         expect(Number(await imageManager.getImagesCountForAccount({ from: investor }))).to.equal(1);
     });
 
-    it.only('the seller can withdraw the money from the sold image', async () => {
+    it('the seller can withdraw the money from the sold image', async () => {
         await imageManager.addImage(
             'https://image.shutterstock.com/image-photo/washington-dc-usa-jan-6th-260nw-1888591864.jpg',
             { from: account, value: web3.utils.toWei('2') },
