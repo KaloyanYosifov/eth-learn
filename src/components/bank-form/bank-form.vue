@@ -3,8 +3,6 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1>Bank</h1>
 
-      {{ images }}
-
       <button v-if="currentFormState !== 'deposit'" class=" btn btn-sm btn-primary" @click="currentFormState = 'deposit'">
         Go To Deposit
       </button>
@@ -40,8 +38,6 @@ import { ref } from 'vue';
 import BorrowForm from '@/components/borrow-form/borrow-form';
 import DepositForm from '@/components/deposit-form/deposit-form';
 import WithdrawForm from '@/components/withdraw-form/withdraw-form';
-import useAccountImages from '@/composables/use-account-images';
-import useEthereumAccount from '@/composables/use-ethereum-account';
 
 export default {
   name: 'BankForm',
@@ -54,13 +50,8 @@ export default {
 
   setup() {
     const currentFormState = ref('deposit');
-    const { account } = useEthereumAccount();
-    const { accountImagesQuery: { data: images } } = useAccountImages({
-      account,
-    });
 
     return {
-      images,
       currentFormState,
     };
   },
