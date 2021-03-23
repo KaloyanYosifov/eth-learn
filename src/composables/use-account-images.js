@@ -9,6 +9,7 @@ import { useMutation, useQuery } from '@cytools/vue-query';
  */
 import useImageManager from '@/composables/use-image-manager';
 import useEthereum from '@/composables/use-ethereum';
+import useEthereumAccount from '@/composables/use-ethereum-account';
 
 export default function useAccountImages({
     account,
@@ -20,6 +21,7 @@ export default function useAccountImages({
     account = isRef(account) ? account : ref(account);
 
     const { web3 } = useEthereum();
+    const { account: registeredAccount, balanceQuery: { refetch } } = useEthereumAccount();
     const { imageManager } = useImageManager();
     const accountImagesQuery = useQuery(
         ['image', account, imageManager],
@@ -34,7 +36,13 @@ export default function useAccountImages({
     const addImageMutation = useMutation((url, price) => {
         return imageManager.value.methods.addImage(url).send({ value: web3.utils.toWei(price.toString(), 'ether'), from: account.value });
     }, {
-        onError: erro => console.log(erro),
+        onSuccess: () => {
+            if (registeredAccount.value !== account.value) {
+                return;
+            }
+
+            refetch();
+        },
     });
 
     return {
