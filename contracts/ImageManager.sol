@@ -12,10 +12,10 @@ contract ImageManager {
     mapping(address => bytes32[]) public imagesToAccount;
     mapping(address => mapping(bytes32 => Image)) public images;
 
-    function addImage(string memory _url) public payable {
-        bytes32 imageId = keccak256(abi.encode(_url, msg.value, msg.sender, blockhash(block.number)));
+    function addImage(uint256 _price, string memory _url) public {
+        bytes32 imageId = keccak256(abi.encode(_url, _price, msg.sender, blockhash(block.number)));
 
-        images[msg.sender][imageId] = Image(imageId, _url, msg.value);
+        images[msg.sender][imageId] = Image(imageId, _url, _price);
         imagesToAccount[msg.sender].push(imageId);
     }
 
@@ -36,6 +36,10 @@ contract ImageManager {
 
         // move image to buyer
         Image memory imageBought = images[_sellerAddress][_imageId];
+
+        // assert that the price paid is the exact one
+        require(imageBought.price == msg.value, "You must pay the exact price of the image!");
+
         images[msg.sender][_imageId] = imageBought;
         imagesToAccount[msg.sender].push(_imageId);
 
