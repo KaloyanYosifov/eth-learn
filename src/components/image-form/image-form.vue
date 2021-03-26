@@ -8,7 +8,8 @@
 
     <div class="card-body d-flex justify-content-center">
       <div class="p-5 w-100" style="max-width: 500px;">
-        <add-image-form />
+        <add-image-form class="hidden" />
+        <buy-image-form />
       </div>
     </div>
   </div>
@@ -21,11 +22,13 @@
 import AddImageForm from '@/components/add-image-form/add-image-form';
 import useEthereumAccount from '@/composables/use-ethereum-account';
 import useAccountImages from '@/composables/use-account-images';
+import BuyImageForm from '@/components/buy-image-form/buy-image-form';
 
 export default {
   name: 'ImageForm',
 
   components: {
+    BuyImageForm,
     AddImageForm,
   },
 
